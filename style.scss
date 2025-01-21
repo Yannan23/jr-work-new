@@ -1,0 +1,211 @@
+$color-yellow: hsl(46, 100%, 55%);
+$color-purple: hsl(250, 100%, 71%);
+$color-green: hsl(141, 71%, 48%);
+$color-gray: hsl(0, 1%, 32%);
+$color-red: hsl(0, 93%, 48%);
+$color-white: hsl(0, 0%, 100%);
+$border: 4px;
+
+.poppins-semibold {
+    font-family: "Poppins", serif;
+    font-weight: 600;
+    font-style: normal;
+}
+
+.poppins-regular {
+    font-family: "Poppins", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: $color-gray;
+}
+
+.cards {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.card {
+    min-width: 300px;
+    height: 500px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.card-yellow,
+.circle-yellow {
+    border: $border solid $color-yellow;
+}
+
+.card-purple,
+.circle-purple {
+    border: $border solid $color-purple;
+}
+
+.card-green,
+.circle-green {
+    border: $border solid $color-green;
+}
+
+.circle {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.capitalized {
+    text-transform: capitalize;
+}
+
+p {
+    width: 95px;
+    height: 95px;
+    text-align: center;
+    line-height: 100px;
+    border-radius: 50%;
+    color: $color-white;
+    font-size: 2rem;
+    position: relative;
+
+    span {
+        font-size: medium;
+        position: absolute;
+        top: -10px;
+        left: 20%;
+        color: $color-white;
+    }
+}
+
+.p-yellow {
+    background-color: $color-yellow;
+}
+
+.p-purple {
+    background-color: $color-purple;
+}
+
+.p-green {
+    background-color: $color-green;
+}
+
+.plan {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    margin: 20px 20px;
+
+    span {
+        background-color: $color-white;
+        padding: 5px 20px;
+
+    }
+
+    &::before {
+        content: " ";
+        position: absolute;
+        height: 1px;
+        width: 100%;
+        left: 0;
+        top: 50%;
+        z-index: -1;
+    }
+}
+
+.plan-yellow {
+    &::before {
+        background-color: $color-yellow;
+    }
+}
+
+.plan-purple {
+    &::before {
+        background-color: $color-purple;
+    }
+}
+
+.plan-green {
+    &::before {
+        background-color: $color-green;
+    }
+}
+
+ul {
+    list-style: none;
+    width: 100%;
+    font-size: small;
+
+    li {
+        display: flex;
+        justify-content: space-between;
+        margin: 20px 0;
+
+        span {
+            @extend .capitalized
+        }
+
+        .fa-check {
+            color: $color-green;
+        }
+
+        .fa-xmark {
+            color: $color-red;
+        }
+    }
+}
+
+.btn {
+    text-transform: capitalize;
+    background-color: $color-white;
+    width: 150px;
+    height: 50px;
+    margin-top: 30px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+}
+
+.button-yellow {
+    @extend .btn;
+    color: $color-yellow;
+    border: 2px solid $color-yellow;
+
+    &:hover {
+        background-color: $color-yellow;
+        color: $color-white;
+    }
+}
+
+.button-purple {
+    @extend .btn;
+    color: $color-purple;
+    border: 2px solid $color-purple;
+
+    &:hover {
+        background-color: $color-purple;
+        color: $color-white;
+    }
+}
+
+.button-green {
+    @extend .btn;
+    color: $color-green;
+    border: 2px solid $color-green;
+
+    &:hover {
+        background-color: $color-green;
+        color: $color-white;
+    }
+}
