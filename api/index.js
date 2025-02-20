@@ -73,10 +73,10 @@ function initSearchInputEvent(users) {
     })
 }
 
-async function initAddUserInputEvent(users) {
+function initAddUserInputEvent(users) {
 
     const addUserInput = document.getElementById('addUserInput')
-    addUserInput.addEventListener("input", async (e) => {
+    addUserInput.addEventListener("click", async (e) => {
         const result = await fetchUser();
         globalUsers = [...globalUsers, result.data]
         renderTable(globalUsers)
