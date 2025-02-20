@@ -29,7 +29,7 @@ function buildUsers(users) {
                     <td>${user.email}</td>
                     <td>${user.name}</td>
                     <td>${user.birthday}</td>
-                    <td></td><button onClick="deleteUser('${user.email}')">Delete</button></td>
+                    <td><button onClick="deleteUser('${user.email}')">Delete</button></td>
                 </tr> `
         ).join('');
 }
