@@ -1,100 +1,64 @@
-
 const API_URL = "https://api.api-ninjas.com/v1/randomuser";
 const TOKEN = "tgt3NewVfjsM5JJ6HrnJpA==BpgSXIwVbbRqjYeS";
 let globalUsers = null;
 
-function fetchUser() {
-    return axios.get(API_URL, {
-        headers: {
-            "X-APi-Key": TOKEN,
-        },
-    });
+function buildUsers(globalUsers) {
+    globalUsers.map((user) => {
+        `
+        <tr>
+            <td>${user.username}</td>
+            <td>${user.sex}</td>
+            <td>${user.address}</td>
+            <td>${user.name}</td>
+            <td>${user.email}</td>
+            <td>${user.birthday}</td>
+        </tr>
+        `}).join('')
 }
-
-function deleteUser(email) {
-    const otherUsers = globalUsers.filter((user) => user.email !== email)
-
-    globalUsers = otherUsers
-    renderTable(otherUsers)
-}
-
-function buildUsers(users) {
-    return users
-        .map(
-            (user) =>
-                `<tr>
-                    <td>${user.username}</td>
-                    <td>${user.sex}</td>
-                    <td>${user.address}</td>
-                    <td>${user.email}</td>
-                    <td>${user.name}</td>
-                    <td>${user.birthday}</td>
-                    <td><button onClick="deleteUser('${user.email}')">Delete</button></td>
-                </tr> `
-        ).join('');
-}
-
-function renderTable(users) {
-    const bodyContainer = document.getElementById('userTable')
-    bodyContainer.innerHTML = `
-    <table>
-        <thead>
-            <tr>
-                <th>Username</th>
-                <th>Sex</th>
-                <th>Address</th>
-                <th>Email</th>
-                <th>Name</th>
-                <th>DOB</th>
-            </tr>
-        </thead>
-        <tbody>${buildUsers(users)}</tbody>
-    </table>
+function renderTable() {
+    const userTable = document.getElementById("userTable")
+    userTable.innerHTML = `
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>sex</th>
+                    <th>address</th>
+                    <th>name</th>
+                    <th>email</th>
+                    <th>birthday</th>
+                </tr>
+                <tb>${buildUsers(users)}</tb>
+            </thead>
+        </table>
     `
 }
-function renderLoadingScreen() {
-    const tableContainer = document.getElementById("userTable")
-    tableContainer.innerHTML = '<p>Loading...</p>'
-}
 
-function initSearchInputEvent(users) {
-    const searchInput = document.getElementById('searchInput')
-    searchInput.addEventListener("input", (e) => {
-        const searchTerms = e.target.value.toLowerCase()
-        if (!searchTerms || searchTerms === '') {
-            renderTable(users)
-            return
+function initSearchInputEvent() { }
+
+function fetchUsers() {
+    return axios.get(API_URL, {
+        headers: {
+            'X-Api-Key': TOKEN
         }
-
-        const result = users.filter((user) =>
-            user.name.toLowerCase().includes(searchTerms)
-        )
-        renderTable(result)
     })
 }
 
-function initAddUserInputEvent(users) {
-
-    const addUserInput = document.getElementById('addUserInput')
-    addUserInput.addEventListener("click", async (e) => {
-        const result = await fetchUser();
-        globalUsers = [...globalUsers, result.data]
-        renderTable(globalUsers)
-    })
+function renderLoadingScreen() {
+    const userTable = document.getElementById('userTable');
+    userTable.innerHTML = "<p>Loading...</p>"
 }
-
-async function main() {
+async function api() {
     try {
-        renderLoadingScreen()
-        const result = await fetchUser();
-        globalUsers = [result.data]
-        renderTable(globalUsers)
+        renderLoadingScreen();
+        const result = await fetchUsers();
+        globalUsers = [result.data];
+        renderTable(globalUsers);
+        initSearchInputEvent();
         initAddUserInputEvent();
-        initSearchInputEvent(globalUsers);
     } catch (e) {
-        const table = document.getElementById('userTable')
-        table.innerHTML = "Error cannot load data"
+        console.log(e);
     }
 }
 
-main();
+api();
